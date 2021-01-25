@@ -1,0 +1,12 @@
+{
+  "name": "silk_innovation_dilip_thakur",
+  "displayName": "silk_innovation_dilip_thakur",
+  "expo": {
+    "name": "silk_innovation_dilip_thakur",
+    "slug": "silk_innovation_dilip_thakur",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
