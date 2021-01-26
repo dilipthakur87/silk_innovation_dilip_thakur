@@ -82,10 +82,15 @@ const LoginScreen = ({navigation}) => {
 
     doLogin(logindata).then((res) => {
       setLoading(false);
+      // set Token to local storage
       navigation.replace('Dashboard')
     }).catch((err) => {
-      setErrortext(err)
       setLoading(false);
+      if(err?.message) {
+        setErrortext(err?.response?.data?.message || "Internal Error")
+      } else {
+        setErrortext(err)
+      }
     })
   }
 
