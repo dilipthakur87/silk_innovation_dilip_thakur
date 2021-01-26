@@ -10,23 +10,21 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-import { setToken, getToken } from '../../utils/localStorage'
+import { setToken, getToken } from '../../utils/LocalStorage'
 import { validate_email_phone, validate_pin } from '../../utils/validator'
 import { doLogin } from '../../services/loginService'
 import FullScreenLoader from '../../components/FullScreenLoader';
 
 const LoginScreen = ({navigation}) => {
-  const [userEmail, setUserEmail] = useState('arojjaki6@gmail.com');
-  const [userPassword, setUserPassword] = useState('Password123');
+  const [userEmail, setUserEmail] = useState('nitish.atom@gmail.com');
+  const [userPassword, setUserPassword] = useState('password123');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
 
   useEffect(() => {
     (async () => {
       try {
-        console.log("I am being called hai");
         const token = await getToken()
-  
         if(token) {
           navigation.replace("Dashboard")
         } else {
@@ -34,7 +32,6 @@ const LoginScreen = ({navigation}) => {
         }
       } catch(err) {
         // pass
-        console.log("Error = ", err)
       }
     })()
   }, [])
@@ -83,7 +80,10 @@ const LoginScreen = ({navigation}) => {
     doLogin(logindata).then((res) => {
       setLoading(false);
       // set Token to local storage
-      navigation.replace('Dashboard')
+      if(res?.access_token) {
+        setToken(res.access_token)
+        navigation.replace('Dashboard')
+      }
     }).catch((err) => {
       setLoading(false);
       if(err?.message) {

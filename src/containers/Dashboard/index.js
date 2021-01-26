@@ -1,13 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
-export default function Dashboard() {
 
+import { Images, Metrics } from '../../themes'
+import { removeToken } from '../../utils/LocalStorage'
+
+export default function Dashboard(props) {
+  
   return (
     <View style={styles.container}>
-      <Text>Dashboard Page</Text>
       <StatusBar style="auto" />
+      <Text>Dashboard Page</Text>
+      <TouchableOpacity
+        style={[Metrics.defaultMargin, Metrics.tinyHorizontalPadding]}
+        onPress={() => {
+          removeToken(props)
+        }} 
+      >
+        <Image source={Images.logout} style={{ width: 25, height: 25 }} resizeMode='contain' />
+      </TouchableOpacity>
     </View>
   );
 }

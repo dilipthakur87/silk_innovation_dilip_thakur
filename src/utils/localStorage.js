@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { Constants } from '../configs/Constants'
+import { Alert } from 'react-native'
+import { Constants } from './Constants'
 
 const storage = AsyncStorage;
 const tokenKey = Constants.access_Token;
@@ -25,3 +26,32 @@ export const getToken = async () => {
   }
   return null;
 };
+
+export const removeToken = async (props) => {
+  try {
+    await Alert.alert(
+      'Silk Innovation',
+      `Are you sure you want to logout?`,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            console.log('cancel')
+          },
+          style: 'cancel',
+        },
+        {
+          text: 'Continue',
+          onPress: () => {
+            storage.removeItem(tokenKey)
+            props.navigation.replace("Auth");
+          },
+        },
+      ],
+      { cancelable: false }
+    )
+
+  } catch (error) {
+    // Error retrieving data
+  }
+}
